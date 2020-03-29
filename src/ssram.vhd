@@ -7,11 +7,11 @@ use ieee.numeric_std.all;
 
 entity ssram is
 port(
-  clk       : in  std_logic;                     -- Clock
+  clock     : in  std_logic;                     -- Clock
   addr      : in  std_logic_vector(5 downto 0);  -- Address
-  data_out  : out std_logic_vector(7 downto 0);   -- Data Out 
+  data_out  : out std_logic_vector(7 downto 0);  -- Data Out 
   data_in   : in  std_logic_vector(7 downto 0);  -- Data In
-  we        : in  std_logic                     -- Write Enable, active high
+  we        : in  std_logic                      -- Write Enable, active high
 );
 end ssram;
 
@@ -41,9 +41,9 @@ attribute ram_style of memory : signal is "block";
 
 begin
 
-process(clk)
+process(clock)
 begin
-  if rising_edge(clk) then
+  if rising_edge(clock) then
 	  -- Write memory
 	  if(we = '1') then
       memory(to_integer(unsigned(addr))) <= data_in;

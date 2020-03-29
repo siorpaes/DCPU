@@ -21,7 +21,7 @@ architecture behaviour of dcpu_top is
   signal r_we       : std_logic := '0';
   signal r_clock    : std_logic := '0';
   signal r_reset    : std_logic := '0';
-
+begin
   -- Instantiate DCPU
   DCPU: entity work.dcpu
   port map(
@@ -29,17 +29,21 @@ architecture behaviour of dcpu_top is
   reset     => r_reset,
   data_out  => r_data_out,
   data_in   => r_data_in,
-  address   => r_address,
+  addr      => r_addr,
   we        => r_we
   );
 
   -- Instantiate SRAM
-  SRAM: entity work.sram
+  SRAM: entity work.ssram
   port map(
   clock => r_clock,
+  addr => r_addr,
   data_in => r_data_out, -- DCPU data_out is SRAM data_in
   data_out => r_data_in, -- DCPU data_in is SRAM data_out
   we => r_we
   );
+
+  r_reset <= reset;
+  r_clock <= clock;
 
 end architecture behaviour;
