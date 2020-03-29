@@ -75,7 +75,11 @@ begin
                 pc <= pc + 1;
                 accu <= accu + 1;
                 we <= '0';
+              when others =>
+                dcpustate <= IDLE;
               end case;
+          when others =>
+            dcpustate <= IDLE;
         end case;
       end if;
     end if;
@@ -84,5 +88,5 @@ begin
   -- address line is assigned program counter if dealing with instruction
   -- address line is assigned input data if dealing with loads/stores
   addr <= '0' & pc      when (prg_data = '1') else
-          '1' & data_in; 
+          '1' & data_in (4 downto 0);
 end Behavioral;
