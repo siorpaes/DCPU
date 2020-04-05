@@ -19,12 +19,13 @@ end dcpu;
 architecture Behavioral of dcpu is
 
 --DCPU internal signals
-signal accu     : std_logic_vector(8 downto 0) := (others => '0');
-signal pc       : std_logic_vector(4 downto 0) := (others => '0');
-signal prg_data : std_logic := '1'; -- Selects whether instruction or data are being fetched: 1 program, 0 data
+signal accu      : std_logic_vector(7 downto 0) := (others => '0');
+signal pc        : std_logic_vector(4 downto 0) := (others => '0');
+signal data_addr : std_logic_vector(4 downto 0) := (others => '0');  -- load/store address argument
+signal prg_data  : std_logic := '1'; -- Selects whether instruction or data are being fetched: 1 program, 0 data
 
 -- DCPU State Machine
-type state is (IDLE, RST, EXEC, BLOAD, LOAD, BSTORE, STORE);
+type state is (IDLE, RST, EXEC, BLOAD, LOAD, BSTORE, STORE, BUBBLE);
 signal dcpustate : state := IDLE;
 
 begin
@@ -33,7 +34,6 @@ begin
     if rising_edge(clock) then
       if(reset = '0') then
         dcpustate <= RST;
-        addr      <= (others => '0');
         data_out  <= (others => '0');
         accu      <= (others => '0');
         pc        <= (others => '0');
@@ -51,6 +51,7 @@ begin
             -- Instruction decoding and execution
             case data_in(7 downto 5) is
               when "000" => -- LDA
+                data_addr <= data_in(4 downto 0); -- Take data address
                 prg_data <= '0';
                 we <= '0';
                 dcpustate <= BLOAD;
@@ -63,7 +64,7 @@ begin
               when "011" => -- JMP
                 prg_data <= '1';
                 pc <= data_in(4 downto 0);
-                dcpustate <= EXEC;
+                dcpustate <= BUBBLE;
                 we <= '0';
               when "100" => -- BEQ
               when "101" => -- BNE
@@ -78,6 +79,21 @@ begin
               when others =>
                 dcpustate <= IDLE;
               end case;
+
+          -- Bubble Load
+          when BLOAD =>
+            dcpustate <= LOAD;
+            prg_data <= '1'; -- Put back addr to PC
+
+          -- Load accumulator with input data
+          when LOAD =>
+            accu <= data_in(7 downto 0);
+            prg_data <= '1';
+            pc <= pc + 1;
+            dcpustate <= EXEC;
+          when BUBBLE =>
+            dcpustate <= EXEC;
+
           when others =>
             dcpustate <= IDLE;
         end case;
@@ -85,8 +101,8 @@ begin
     end if;
   end process;
 
-  -- address line is assigned program counter if dealing with instruction
-  -- address line is assigned input data if dealing with loads/stores
-  addr <= '0' & pc      when (prg_data = '1') else
-          '1' & data_in (4 downto 0);
+  -- Address line is assigned to program counter in low memory if dealing with instruction
+  -- Address line is assigned to data address in hi memory if dealing with loads/stores
+  addr <= ('0' & pc)      when (prg_data = '1') else
+          ('1' & data_addr(4 downto 0));
 end Behavioral;

@@ -16,7 +16,7 @@ signal reset : std_logic := '1';
 begin
 
   -- Instantiate DCPU Top
-	DCPUTOP: entity work.dcpu_top
+	DCPU_TOP: entity work.dcpu_top
 	port map(
 	clock => clock,
 	reset => reset
@@ -37,9 +37,9 @@ begin
 	process
 	begin
 		reset <= '1';
-		wait for 5us;
+		wait for 15ns;
 		reset <= '0';
-		wait for 6us;
+		wait for 65ns;
 		reset <= '1';
 		wait;
 	end process;	
