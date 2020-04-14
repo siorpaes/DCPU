@@ -1,4 +1,4 @@
-** Dumb CPU **
+# Dumb CPU #
 
 Dumb CPU just meant for didactic and experimental purposes.
 DCPU has a data bus width of 8 bits and address space width of 6 bits, thus addressing 64 bytes only.
@@ -6,7 +6,7 @@ The lower 32 bytes of the address space are devoted to instructions whereas the 
 DCPU has an accumulator and a X register.
 
 
-*** Instruction decoding ***
+## Instruction decoding ##
 Bits 5,6,7 of each instructions are dedicated to instruction opcode. The remaining five bits are the target address of the
 instruction for instructions that deal with addresses whereas represent additional opcode space for instructions that do not
 need a target address.
@@ -19,3 +19,6 @@ need a target address.
 101   BEQ   Branch if accumulator is EQual to X register
 110   TBD
 111   Other instructions code
+
+00000   ZEA   ZEro Accumulator
+00001   INC   INCrement accumulator

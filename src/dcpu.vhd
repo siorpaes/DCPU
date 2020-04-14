@@ -69,21 +69,29 @@ begin
               when "100" => -- BEQ
               when "101" => -- BNE
               when "110" => -- TBD
-              -- All other instructions not needing address
+
+              -- All other instructions *not* needing address
               when "111" =>
                 prg_data <= '1';
-                dcpustate <= EXEC;
                 pc <= pc + 1;
-                accu <= accu + 1;
                 we <= '0';
+                dcpustate <= EXEC;
+                case data_in(4 downto 0) is
+                  when "00000" => -- ZEA
+                    accu <= (others => '0');
+                  when "00001" => -- INC
+                    accu <= accu + 1;
+                  when others =>
+                    dcpustate <= IDLE;
+                  end case;
               when others =>
                 dcpustate <= IDLE;
               end case;
 
           -- Bubble Load
           when BLOAD =>
-            dcpustate <= LOAD;
             prg_data <= '1'; -- Put back addr to PC
+            dcpustate <= LOAD;
 
           -- Load accumulator with input data
           when LOAD =>
