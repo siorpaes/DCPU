@@ -20,9 +20,11 @@ architecture Behavioral of dcpu is
 
 --DCPU internal signals
 signal accu      : std_logic_vector(7 downto 0) := (others => '0');
+signal xreg      : std_logic_vector(7 downto 0) := (others => '0');
 signal pc        : std_logic_vector(4 downto 0) := (others => '0');
 signal data_addr : std_logic_vector(4 downto 0) := (others => '0');  -- load/store address argument
 signal prg_data  : std_logic := '1'; -- Selects whether instruction or data are being fetched: 1 program, 0 data
+signal lda_ldx   : std_logic := '1'; -- Selects whether Accumulator or X register are being loaded
 
 -- DCPU State Machine
 type state is (IDLE, RST, EXEC, BLOAD, LOAD, BSTORE, STORE, BUBBLE);
@@ -36,6 +38,8 @@ begin
         dcpustate <= RST;
         data_out  <= (others => '0');
         accu      <= (others => '0');
+        xreg      <= (others => '0');
+        lda_ldx   <= '1';
         pc        <= (others => '0');
         we        <= '0';
         prg_data  <= '1'; --fetching instructions
@@ -50,17 +54,22 @@ begin
           when EXEC =>
             -- Instruction decoding and execution
             case data_in(7 downto 5) is
-              when "000" => -- LDA
+              when "000" | "010" => -- LDA, LDX
                 data_addr <= data_in(4 downto 0); -- Take data address
                 prg_data <= '0';
                 we <= '0';
+                -- LDA or LDX
+                if data_in(7 downto 5) = "000" then
+                    lda_ldx <= '1';
+                else
+                    lda_ldx <= '0';
+                end if;
                 dcpustate <= BLOAD;
               when "001" => -- STA
                 prg_data <= '0';
                 data_out <= accu(7 downto 0);
                 we <= '1';
                 dcpustate <= STORE;
-              when "010" => -- LDX
               when "011" => -- JMP
                 prg_data <= '1';
                 pc <= data_in(4 downto 0);
@@ -93,9 +102,13 @@ begin
             prg_data <= '1'; -- Put back addr to PC
             dcpustate <= LOAD;
 
-          -- Load accumulator with input data
+          -- Load Accumulator or X register with input data
           when LOAD =>
-            accu <= data_in(7 downto 0);
+            if lda_ldx = '1' then
+                accu <= data_in(7 downto 0);
+            else
+                xreg <= data_in(7 downto 0);
+            end if;
             prg_data <= '1';
             pc <= pc + 1;
             dcpustate <= EXEC;
