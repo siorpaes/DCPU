@@ -42,8 +42,8 @@ int main(int argc, char** argv)
     istringstream iss(line);
     iss >> mnemonic >> address;
 
-    /* Check for comments */
-    if (mnemonic.find("#") != string::npos) {
+    /* Skip comments */
+    if (line.find("#") != string::npos) {
       continue;
     }
 
@@ -57,7 +57,7 @@ int main(int argc, char** argv)
     }
 
     /* Add address filed */
-    if((instruction & 0b11100000) != 0xb11100000){
+    if((instruction & 0b11100000) != 0b11100000){
       instruction |= strtoul(address.c_str(), NULL, 16);
     }
 
