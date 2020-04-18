@@ -113,6 +113,7 @@ begin
             pc <= pc + 1;
             dcpustate <= EXEC;
           when BUBBLE =>
+            pc <= pc + 1;
             dcpustate <= EXEC;
 
           when others =>
