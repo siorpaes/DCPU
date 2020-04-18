@@ -2,6 +2,7 @@
  * david.siorpaes@gmail.com
  * Dumb assembler for dumb CPU
  */
+
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -40,6 +41,13 @@ int main(int argc, char** argv)
     uint8_t instruction;
     istringstream iss(line);
     iss >> mnemonic >> address;
+
+    /* Check for comments */
+    if (mnemonic.find("#") != string::npos) {
+      continue;
+    }
+
+    /* Find mnemonic opcode */
     try{
       instruction = instructions.at(mnemonic);
     }
@@ -48,10 +56,12 @@ int main(int argc, char** argv)
       exit(-1);
     }
 
+    /* Add address filed */
     if((instruction & 0b11100000) != 0xb11100000){
       instruction |= strtoul(address.c_str(), NULL, 16);
     }
 
+    /* Emit */
     cout << memaddr++ << " " << mnemonic << " " << (((instruction & 0b11100000) != 0b11100000) ? address : " ") << " --> 0x" << hex << (int)instruction << endl;
   }
 
