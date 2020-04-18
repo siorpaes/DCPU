@@ -1,4 +1,4 @@
-CPPFLAGS = -Wall
+CPPFLAGS = -Wall -g -O0
 TARGET = dcpuasm
 
 all: $(TARGET)
