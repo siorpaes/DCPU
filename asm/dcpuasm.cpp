@@ -24,15 +24,18 @@ int main(int argc, char** argv)
     {"ZEA", 0b11100000}, {"INC", 0b11100001}
   };
 
+#if 0
   cout << "Available Instructions" << endl;
   map<string, uint8_t>::iterator i;
   for(i = instructions.begin(); i != instructions.end(); i++){
     cout << i->first << " 0x" << hex << (int)i->second << endl;
   }
+#endif
 
   /* Parse all lines and emit instructions accordingly */
   ifstream infile(argv[1]);
   string line, mnemonic, address;
+  unsigned int memaddr = 0;
   while(getline(infile, line)){
     uint8_t instruction;
     istringstream iss(line);
@@ -49,7 +52,7 @@ int main(int argc, char** argv)
       instruction |= strtoul(address.c_str(), NULL, 16);
     }
 
-    cout << mnemonic << " " << address << " --> 0x" << hex << (int)instruction << endl;
+    cout << memaddr++ << " " << mnemonic << " " << (((instruction & 0b11100000) != 0b11100000) ? address : " ") << " --> 0x" << hex << (int)instruction << endl;
   }
 
   return 0;
