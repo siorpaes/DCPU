@@ -66,6 +66,7 @@ begin
                 end if;
                 dcpustate <= BLOAD;
               when "001" => -- STA
+                data_addr <= data_in(4 downto 0); -- Take data address
                 prg_data <= '0';
                 data_out <= accu(7 downto 0);
                 we <= '1';
@@ -115,6 +116,11 @@ begin
           when BUBBLE =>
             pc <= pc + 1;
             dcpustate <= EXEC;
+
+          when STORE =>
+            prg_data <= '1';
+            we <= '0';
+            dcpustate <= BUBBLE;
 
           when others =>
             dcpustate <= IDLE;
