@@ -20,7 +20,7 @@ architecture Behavioral of ssram is
 type memory_array is array(0 to 63) of std_logic_vector(7 downto 0);
 signal memory : memory_array := (
   -- Low memory. Contains program
-  x"e0",x"20",x"e1",x"61",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",
+  x"40",x"e0",x"e1",x"82",x"64",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",
   x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",
   -- Hi memory. Contains data
   x"da",x"ba",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",

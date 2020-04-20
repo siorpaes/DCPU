@@ -27,7 +27,7 @@ signal prg_data  : std_logic := '1'; -- Selects whether instruction or data are 
 signal lda_ldx   : std_logic := '1'; -- Selects whether Accumulator or X register are being loaded
 
 -- DCPU State Machine
-type state is (IDLE, RST, EXEC, BLOAD, LOAD, BSTORE, STORE, BUBBLE);
+type state is (IDLE, RST, EXEC, BLOAD, LOAD, STORE, BUBBLE);
 signal dcpustate : state := IDLE;
 
 begin
@@ -76,8 +76,24 @@ begin
                 pc <= data_in(4 downto 0);
                 dcpustate <= BUBBLE;
                 we <= '0';
-              when "100" => -- BEQ
-              when "101" => -- BNE
+              when "100" => -- BNE
+                prg_data <= '1';
+                if(accu(7 downto 0) /= xreg(7 downto 0)) then
+                    pc <= data_in(4 downto 0);
+                    dcpustate <= BUBBLE;
+                else
+                    pc <= pc + 1;
+                    dcpustate <= EXEC;
+                end if;
+              when "101" => -- BEQ
+                prg_data <= '1';
+                if(accu(7 downto 0) = xreg(7 downto 0)) then
+                    pc <= data_in(4 downto 0);
+                    dcpustate <= BUBBLE;
+                else
+                    pc <= pc + 1;
+                    dcpustate <= EXEC;
+                end if;
               when "110" => -- TBD
 
               -- All other instructions *not* needing address
@@ -113,6 +129,7 @@ begin
             prg_data <= '1';
             pc <= pc + 1;
             dcpustate <= EXEC;
+
           when BUBBLE =>
             pc <= pc + 1;
             dcpustate <= EXEC;
