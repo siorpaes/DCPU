@@ -1,0 +1,6 @@
+# Tests LDA and STA
+LDA 0
+INC
+STA 0
+STA 1
+JMP 1
