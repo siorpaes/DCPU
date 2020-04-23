@@ -28,4 +28,5 @@ Higher three bits (7,6,5) of each instructions are dedicated to instruction opco
 |------------|:--------:|:---------------------------------------------------:|
 |   00000    |   ZEA    | Zero Accumulator                                    |
 |   00001    |   INC    | INCrement accumulator                               |
+|   00010    |   DTO    | DaTa Out                                            |
 |   .....    |   xxx    | To be defined                                       |
