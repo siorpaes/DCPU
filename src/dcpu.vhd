@@ -12,7 +12,8 @@ port(
   addr      : out  std_logic_vector(5 downto 0);  -- Address
   data_out  : out  std_logic_vector(7 downto 0);  -- Data Out 
   data_in   : in   std_logic_vector(7 downto 0);  -- Data In
-  we        : out  std_logic                      -- Write Enable, active high
+  we        : out  std_logic;                     -- Write Enable, active high
+  outport   : out  std_logic_vector(7 downto 0)   -- Data Output port
 );
 end dcpu;
 
@@ -68,7 +69,7 @@ begin
               when "001" => -- STA
                 data_addr <= data_in(4 downto 0); -- Take data address
                 prg_data <= '0';
-                data_out <= accu(7 downto 0);
+                data_out <= accu;
                 we <= '1';
                 dcpustate <= STORE;
               when "011" => -- JMP
@@ -78,7 +79,7 @@ begin
                 we <= '0';
               when "100" => -- BNE
                 prg_data <= '1';
-                if(accu(7 downto 0) /= xreg(7 downto 0)) then
+                if(accu /= xreg) then
                     pc <= data_in(4 downto 0);
                     dcpustate <= BUBBLE;
                 else
@@ -87,7 +88,7 @@ begin
                 end if;
               when "101" => -- BEQ
                 prg_data <= '1';
-                if(accu(7 downto 0) = xreg(7 downto 0)) then
+                if(accu = xreg) then
                     pc <= data_in(4 downto 0);
                     dcpustate <= BUBBLE;
                 else
@@ -107,6 +108,8 @@ begin
                     accu <= (others => '0');
                   when "00001" => -- INC
                     accu <= accu + 1;
+                  when "00010" => -- DTO
+                    outport <= accu;
                   when others =>
                     dcpustate <= IDLE;
                   end case;
@@ -122,9 +125,9 @@ begin
           -- Load Accumulator or X register with input data
           when LOAD =>
             if lda_ldx = '1' then
-                accu <= data_in(7 downto 0);
+                accu <= data_in;
             else
-                xreg <= data_in(7 downto 0);
+                xreg <= data_in;
             end if;
             prg_data <= '1';
             pc <= pc + 1;

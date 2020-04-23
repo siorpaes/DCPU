@@ -1,0 +1,4 @@
+ZEA
+INC
+DTO
+JMP 1
