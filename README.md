@@ -30,3 +30,17 @@ Higher three bits (7,6,5) of each instructions are dedicated to instruction opco
 |   00001    |   INC    | INCrement accumulator                               |
 |   00010    |   DTO    | DaTa Out                                            |
 |   .....    |   xxx    | To be defined                                       |
+
+
+#### TODO List ###
+* <s>Add and test Blinky program</s>
+* Organize project folders and constraints files
+* Add projects for other FPGAs
+* Add platform_top for integrating perpherals (SSD, UART, SPI), muxes, clock dividers and so on
+* Add arithmetic instructions: ADD, SUB, AND, ORA, XOR
+* Add NOP instructions, with/without argument (number of NOP cycles)
+* Add instruction to emit pulse, useful to trigger external peripherals (STroBe)
+* Add instruction to wait until the level of an input signal goes high. Usefult to wait peripheral completion
+* Add instruction to select one out of two or four output selects. Useful for muxing external peripherals
+* Add bootloader that loads program from SPI in another memory bank and jumps to it. Need specific instruction (BNK) to switch banks and
+* <s> Strikeme </s>
