@@ -6,7 +6,8 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <bits/stdc++.h>
+#include <iostream>
+#include <map>
 
 using namespace std;
 
@@ -24,14 +25,6 @@ int main(int argc, char** argv)
     {"BNE", 0b10000000}, {"BEQ", 0b10100000},
     {"ZEA", 0b11100000}, {"INC", 0b11100001}, {"DTO", 0b11100010}
   };
-
-#if 0
-  cout << "Available Instructions" << endl;
-  map<string, uint8_t>::iterator i;
-  for(i = instructions.begin(); i != instructions.end(); i++){
-    cout << i->first << " 0x" << hex << (int)i->second << endl;
-  }
-#endif
 
   /* Parse all lines and emit instructions accordingly */
   ifstream infile(argv[1]);
@@ -62,7 +55,8 @@ int main(int argc, char** argv)
     }
 
     /* Emit */
-    cout << memaddr++ << " " << mnemonic << " " << (((instruction & 0b11100000) != 0b11100000) ? address : " ") << " --> 0x" << hex << (int)instruction << endl;
+    cout << memaddr++ << " " << mnemonic << " ";
+    cout << (((instruction & 0b11100000) != 0b11100000) ? address : " ") << " --> 0x" << hex << (int)instruction << endl;
   }
 
   return 0;
