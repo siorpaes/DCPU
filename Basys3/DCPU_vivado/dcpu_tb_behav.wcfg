@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="dcpu_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="dcpu_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="109748fs"></ZoomStartTime>
+      <ZoomEndTime time="724249fs"></ZoomEndTime>
+      <Cursor1Time time="289748fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="175"></NameColumnWidth>
+      <ValueColumnWidth column_width="132"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="15" />
+   <wvobject fp_name="/dcpu_tb/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcpu_tb/clock" type="logic">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+      <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcpu_tb/DCPU_TOP/DCPU/addr" type="array">
+      <obj_property name="ElementShortName">addr[5:0]</obj_property>
+      <obj_property name="ObjectShortName">addr[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcpu_tb/DCPU_TOP/DCPU/data_in" type="array">
+      <obj_property name="ElementShortName">data_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcpu_tb/DCPU_TOP/DCPU/accu" type="array">
+      <obj_property name="ElementShortName">accu[7:0]</obj_property>
+      <obj_property name="ObjectShortName">accu[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcpu_tb/DCPU_TOP/DCPU/xreg" type="array">
+      <obj_property name="ElementShortName">xreg[7:0]</obj_property>
+      <obj_property name="ObjectShortName">xreg[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcpu_tb/DCPU_TOP/DCPU/pc" type="array">
+      <obj_property name="ElementShortName">pc[4:0]</obj_property>
+      <obj_property name="ObjectShortName">pc[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcpu_tb/DCPU_TOP/DCPU/prg_data" type="logic">
+      <obj_property name="ElementShortName">prg_data</obj_property>
+      <obj_property name="ObjectShortName">prg_data</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcpu_tb/DCPU_TOP/DCPU/dcpustate" type="other">
+      <obj_property name="ElementShortName">dcpustate</obj_property>
+      <obj_property name="ObjectShortName">dcpustate</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcpu_tb/DCPU_TOP/DCPU/data_out" type="array">
+      <obj_property name="ElementShortName">data_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcpu_tb/DCPU_TOP/DCPU/we" type="logic">
+      <obj_property name="ElementShortName">we</obj_property>
+      <obj_property name="ObjectShortName">we</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcpu_tb/DCPU_TOP/SRAM/memory[32]" type="array">
+      <obj_property name="ElementShortName">[32][7:0]</obj_property>
+      <obj_property name="ObjectShortName">[32][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcpu_tb/DCPU_TOP/SRAM/memory[33]" type="array">
+      <obj_property name="ElementShortName">[33][7:0]</obj_property>
+      <obj_property name="ObjectShortName">[33][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcpu_tb/DCPU_TOP/SRAM/memory" type="array">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">memory[0:63][7:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[0:63][7:0]</obj_property>
+      <obj_property name="label">memory[0:63][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcpu_tb/DCPU_TOP/DCPU/outport" type="array">
+      <obj_property name="ElementShortName">outport[7:0]</obj_property>
+      <obj_property name="ObjectShortName">outport[7:0]</obj_property>
+   </wvobject>
+</wave_config>

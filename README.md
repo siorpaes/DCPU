@@ -34,8 +34,8 @@ Higher three bits (7,6,5) of each instructions are dedicated to instruction opco
 
 #### TODO List ###
 * <s>Add and test Blinky program</s>
-* Organize project folders and constraints files
-* Add projects for other FPGAs
+* <s>Organize project folders and constraints files</s>
+* <s>Add projects for other FPGAs</s>
 * Add platform_top for integrating perpherals (SSD, UART, SPI), muxes, clock dividers and so on
 * Add arithmetic instructions: ADD, SUB, AND, ORA, XOR
 * Add NOP instructions, with/without argument (number of NOP cycles)
