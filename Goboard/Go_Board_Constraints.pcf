@@ -16,10 +16,10 @@
 set_io clock 15
 
 ### LED Pins:
-set_io outport[0] 56
-set_io outport[1] 57
-set_io outport[2] 59
-set_io outport[3] 60
+set_io outport[4] 56
+set_io outport[5] 57
+set_io outport[6] 59
+set_io outport[7] 60
 
 ## Push-Button Switches
 set_io reset 53
@@ -61,10 +61,10 @@ set_io reset 53
 #set_io o_VGA_Blu_2 42
 
 ## PMOD Signals
-set_io outport[4] 65
-set_io outport[5] 64
-set_io outport[6] 63
-set_io outport[7] 62
+set_io outport[0] 65
+set_io outport[1] 64
+set_io outport[2] 63
+set_io outport[3] 62
 #set_io debug[0] 78
 #set_io debug[1] 79
 #set_io debug[2] 80
